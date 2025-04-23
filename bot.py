@@ -5,7 +5,7 @@ from telebot import TeleBot
 from gpt import ask_gpt
 
 # توکن ربات تلگرام
-BOT_TOKEN = "7364375268:AAHINkpnSsFdOf_gcaedtBw0G95Zj6dLjVE"
+BOT_TOKEN = "8174756157:AAGECPZ3ctcaGE86EQVfpnoR3v8zUqdvtxA"
 bot = TeleBot(BOT_TOKEN)
 
 # context پیش‌فرض (میشه از فایل هم لود کرد)
