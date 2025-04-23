@@ -10,10 +10,10 @@ BOT_TOKEN = "7364375268:AAHINkpnSsFdOf_gcaedtBw0G95Zj6dLjVE"
 bot = TeleBot(BOT_TOKEN)
 context = load_context()
 
-# حذف webhook (مهم برای جلوگیری از خطای 409)
+# حذف webhook برای جلوگیری از Conflict
 bot.remove_webhook()
 
-# اجرای ربات تلگرام در یک ترد جداگانه
+# اجرای ربات در یک Thread
 def run_bot():
     @bot.message_handler(func=lambda message: True)
     def handle(message):
@@ -27,10 +27,10 @@ def run_bot():
     print("🤖 ربات در حال اجراست...")
     bot.infinity_polling()
 
-# اجرای ترد ربات
+# اجرای Thread
 threading.Thread(target=run_bot).start()
 
-# ساخت سرور Flask ساده برای Render
+# سرور Flask ساده برای Render
 app = Flask(__name__)
 
 @app.route('/')
