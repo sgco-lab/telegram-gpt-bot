@@ -2,7 +2,7 @@ import requests
 import os
 from utils.embedder import Embedder
 
-GPT_API_KEY = os.getenv("GPT_API_KEY") or "YOUR_PAWAN_API_KEY"
+GPT_API_KEY = os.getenv("OPENAI_API_KEY") or "pk-uaUosLTWqoAQPzySAYfqHRdARIOeeWaNLRDlmwCzQQUXHdYq"
 GPT_API_URL = "https://api.pawan.krd/v1/chat/completions"
 
 embedder = Embedder()
