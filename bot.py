@@ -6,7 +6,7 @@ import threading
 from flask import Flask
 
 # توکن تلگرام و کلید GPT از محیط یا به صورت مستقیم
-BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN") or "توکن ربات"
+BOT_TOKEN = os.getenv("7796045738:AAFcvuZxBD_3nUirM61gAEPQxDWpoO8gBFo") or "توکن ربات"
 bot = TeleBot(BOT_TOKEN)
 context = load_context()
 
