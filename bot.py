@@ -6,7 +6,7 @@ from modules.gpt import ask_gpt
 from modules.loader import load_context
 
 # توکن ربات از محیط یا مستقیم
-BOT_TOKEN = os.getenv("7796045738:AAFcvuZxBD_3nUirM61gAEPQxDWpoO8gBFo") or "توکن ربات شما"
+BOT_TOKEN = os.getenv("7364375268:AAHINkpnSsFdOf_gcaedtBw0G95Zj6dLjVE") or "توکن ربات شما"
 bot = TeleBot(BOT_TOKEN)
 context = load_context()
 
