@@ -5,12 +5,12 @@ from telebot import TeleBot
 from modules.gpt import ask_gpt
 from modules.loader import load_context
 
-# توکن ربات از محیط یا مستقیم
-BOT_TOKEN = os.getenv("7364375268:AAHINkpnSsFdOf_gcaedtBw0G95Zj6dLjVE") or "توکن ربات شما"
+# مستقیم استفاده از توکن جدید
+BOT_TOKEN = "7364375268:AAHINkpnSsFdOf_gcaedtBw0G95Zj6dLjVE"
 bot = TeleBot(BOT_TOKEN)
 context = load_context()
 
-# اجرای ربات تلگرام در یک ترد جدا
+# اجرای ربات تلگرام در یک ترد جداگانه
 def run_bot():
     @bot.message_handler(func=lambda message: True)
     def handle(message):
@@ -24,17 +24,16 @@ def run_bot():
     print("🤖 ربات در حال اجراست...")
     bot.infinity_polling()
 
-# اجرا کردن ربات در بک‌گراند
+# اجرای ترد ربات
 threading.Thread(target=run_bot).start()
 
-# سرور Flask ساده فقط برای نگه داشتن پورت باز
+# ساخت سرور Flask ساده برای Render
 app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return "✅ ربات هوش مصنوعی تلگرام فعاله!"
+    return "✅ ربات فعال است!"
 
-# اجرای سرور Flask برای اینکه Render پورت رو شناسایی کنه
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
