@@ -7,8 +7,11 @@ from modules.loader import load_context
 
 # توکن ربات تلگرام
 BOT_TOKEN = "7364375268:AAHINkpnSsFdOf_gcaedtBw0G95Zj6dLjVE"
-bot = TeleBot("7364375268:AAHINkpnSsFdOf_gcaedtBw0G95Zj6dLjVE")
+bot = TeleBot(BOT_TOKEN)
 context = load_context()
+
+# حذف webhook (مهم برای جلوگیری از خطای 409)
+bot.remove_webhook()
 
 # اجرای ربات تلگرام در یک ترد جداگانه
 def run_bot():
@@ -22,7 +25,7 @@ def run_bot():
             bot.reply_to(message, "خطا در پاسخ‌دهی هوش مصنوعی.")
 
     print("🤖 ربات در حال اجراست...")
-    bot.infinity_polling()  # استفاده از polling برای دریافت پیام‌ها
+    bot.infinity_polling()
 
 # اجرای ترد ربات
 threading.Thread(target=run_bot).start()
@@ -35,6 +38,5 @@ def home():
     return "✅ ربات فعال است!"
 
 if __name__ == "__main__":
-    # پورت را از متغیر محیطی یا مقدار پیش‌فرض استفاده می‌کنیم
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
