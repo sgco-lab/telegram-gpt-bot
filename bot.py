@@ -1,36 +1,40 @@
-from modules.gpt import ask_gpt
-from modules.loader import load_context
-from telebot import TeleBot
 import os
 import threading
 from flask import Flask
+from telebot import TeleBot
+from modules.gpt import ask_gpt
+from modules.loader import load_context
 
-# توکن تلگرام و کلید GPT از محیط یا به صورت مستقیم
-BOT_TOKEN = os.getenv("7796045738:AAFcvuZxBD_3nUirM61gAEPQxDWpoO8gBFo") or "توکن ربات"
+# توکن ربات از محیط یا مستقیم
+BOT_TOKEN = os.getenv("7796045738:AAFcvuZxBD_3nUirM61gAEPQxDWpoO8gBFo") or "توکن ربات شما"
 bot = TeleBot(BOT_TOKEN)
 context = load_context()
 
-# ربات تلگرام به صورت thread جدا اجرا میشه
+# اجرای ربات تلگرام در یک ترد جدا
 def run_bot():
     @bot.message_handler(func=lambda message: True)
     def handle(message):
-        response = ask_gpt(message.text, context)
-        bot.reply_to(message, response)
-    
-    print("🤖 Bot is running...")
+        try:
+            response = ask_gpt(message.text, context)
+            bot.reply_to(message, response)
+        except Exception as e:
+            print("❌ خطا:", e)
+            bot.reply_to(message, "خطا در پاسخ‌دهی هوش مصنوعی.")
+
+    print("🤖 ربات در حال اجراست...")
     bot.infinity_polling()
 
-# اجرای ربات
+# اجرا کردن ربات در بک‌گراند
 threading.Thread(target=run_bot).start()
 
-# ساخت وب‌سرور Flask ساده برای Render
+# سرور Flask ساده فقط برای نگه داشتن پورت باز
 app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return "✅ Telegram GPT bot is alive."
+    return "✅ ربات هوش مصنوعی تلگرام فعاله!"
 
-# اجرای Flask روی پورت مناسب Render
-if __name__ == '__main__':
+# اجرای سرور Flask برای اینکه Render پورت رو شناسایی کنه
+if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host="0.0.0.0", port=port)
