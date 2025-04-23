@@ -4,7 +4,7 @@ from telebot import TeleBot, types
 from modules.gpt import ask_gpt
 from modules.loader import load_context
 
-BOT_TOKEN = "7364375268:AAHINkpnSsFdOf_gcaedtBw0G95Zj6dLjVEا"
+BOT_TOKEN = "7364375268:AAHINkpnSsFdOf_gcaedtBw0G95Zj6dLjVE"
 bot = TeleBot(BOT_TOKEN)
 context = load_context()
 
