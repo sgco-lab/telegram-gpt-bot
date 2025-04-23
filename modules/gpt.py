@@ -27,9 +27,12 @@ def ask_gpt(user_input, context=None):
         ]
     }
 
-    try:
+        try:
         response = requests.post(GPT_API_URL, headers=headers, json=data)
+        response.raise_for_status()
         return response.json()["choices"][0]["message"]["content"]
     except Exception as e:
-        print("❌ خطا در درخواست به GPT:", e)
+        print("❌ خطا در ارتباط با GPT API:", e)
+        print("⛔ پاسخ سرور:", response.text)
         return "❌ خطا در پاسخ‌دهی هوش مصنوعی."
+
