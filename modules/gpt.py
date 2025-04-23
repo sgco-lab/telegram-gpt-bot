@@ -1,32 +1,24 @@
-import requests
 import os
-from utils.embedder import Embedder
+import openai
 
-GPT_API_KEY = os.getenv("OPENAI_API_KEY") or "YOUR_PAWAN_API_KEY"
-GPT_API_URL = "https://api.pawan.krd/v1/chat/completions"
+# گرفتن کلید از متغیر محیطی
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
-embedder = Embedder()
-
-def ask_gpt(user_input, context=None):
+# تابع درخواست به GPT
+def ask_gpt(user_input, context="شما یک دستیار هوشمند هستید."):
     try:
-        matched = embedder.search(user_input)
-        smart_context = "\n".join(matched)
-    except:
-        smart_context = context or "شما یک ربات پشتیبانی هوشمند هستید."
-
-    headers = {
-        "Authorization": f"Bearer {GPT_API_KEY}",
-        "Content-Type": "application/json"
-    }
-    data = {
-        "model": "gpt-3.5-turbo",
-        "messages": [
-            {"role": "system", "content": smart_context},
+        messages = [
+            {"role": "system", "content": context},
             {"role": "user", "content": user_input}
         ]
-    }
-    try:
-        response = requests.post(GPT_API_URL, headers=headers, json=data)
-        return response.json()["choices"][0]["message"]["content"]
+
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=messages
+        )
+
+        return response["choices"][0]["message"]["content"]
+    
     except Exception as e:
+        print("❌ خطا در اتصال به GPT:", e)
         return "❌ خطا در پاسخ‌دهی هوش مصنوعی."
