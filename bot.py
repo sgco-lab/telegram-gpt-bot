@@ -1,41 +1,40 @@
 import os
-import threading
-from flask import Flask
-from telebot import TeleBot
+from flask import Flask, request
+from telebot import TeleBot, types
 from modules.gpt import ask_gpt
 from modules.loader import load_context
 
-# --- تنظیمات اولیه ---
-BOT_TOKEN = "7364375268:AAHINkpnSsFdOf_gcaedtBw0G95Zj6dLjVE"
+BOT_TOKEN = "توکن رباتت اینجا"
 bot = TeleBot(BOT_TOKEN)
 context = load_context()
 
-# حذف webhook برای جلوگیری از ارور 409
+WEBHOOK_URL = os.getenv("WEBHOOK_URL") or "https://نام-سرویس-تو-on-render.onrender.com/webhook"
+
+# حذف webhook قبلی و تنظیم جدید
 bot.remove_webhook()
+bot.set_webhook(url=WEBHOOK_URL)
 
-# --- تابع اجرای ربات تلگرام ---
-def run_bot():
-    @bot.message_handler(func=lambda message: True)
-    def handle(message):
-        try:
-            response = ask_gpt(message.text, context)
-            bot.reply_to(message, response)
-        except Exception as e:
-            print("❌ خطا:", e)
-            bot.reply_to(message, "❌ خطا در پاسخ‌دهی هوش مصنوعی.")
-
-    print("🤖 ربات در حال اجراست (Polling فعال است)...")
-    bot.infinity_polling(skip_pending=True)  # پیام‌های قدیمی رو رد کن
-
-# اجرای ربات در یک Thread جدا برای هماهنگی با Flask
-threading.Thread(target=run_bot).start()
-
-# --- اپلیکیشن Flask برای نگه داشتن پروژه فعال در Render ---
 app = Flask(__name__)
 
-@app.route('/')
+@app.route("/webhook", methods=["POST"])
+def webhook():
+    json_str = request.get_data().decode("UTF-8")
+    update = types.Update.de_json(json_str)
+    bot.process_new_updates([update])
+    return "OK", 200
+
+@bot.message_handler(func=lambda m: True)
+def handle(message):
+    try:
+        response = ask_gpt(message.text, context)
+        bot.reply_to(message, response)
+    except Exception as e:
+        print("❌ خطا:", e)
+        bot.reply_to(message, "خطا در پاسخ‌دهی هوش مصنوعی.")
+
+@app.route("/")
 def home():
-    return "✅ ربات آنلاین و فعال است!"
+    return "✅ ربات فعال است!"
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
