@@ -22,7 +22,7 @@ def run_bot():
             bot.reply_to(message, "خطا در پاسخ‌دهی هوش مصنوعی.")
 
     print("🤖 ربات در حال اجراست...")
-    bot.infinity_polling()
+    bot.infinity_polling()  # استفاده از polling برای دریافت پیام‌ها
 
 # اجرای ترد ربات
 threading.Thread(target=run_bot).start()
@@ -35,5 +35,6 @@ def home():
     return "✅ ربات فعال است!"
 
 if __name__ == "__main__":
+    # پورت را از متغیر محیطی یا مقدار پیش‌فرض استفاده می‌کنیم
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
