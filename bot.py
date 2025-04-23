@@ -6,7 +6,7 @@ from modules.gpt import ask_gpt
 from modules.loader import load_context
 
 # ✅ توکن ربات تلگرام
-BOT_TOKEN = "توکن_ربات_تلگرام_تو_اینجا"  # حتماً درست و بدون فاصله بذار
+BOT_TOKEN = "7364375268:AAHINkpnSsFdOf_gcaedtBw0G95Zj6dLjVE"  # حتماً درست و بدون فاصله بذار
 
 # 🎯 اتصال به بات
 bot = TeleBot(BOT_TOKEN)
