@@ -7,7 +7,7 @@ from modules.loader import load_context
 
 # توکن ربات تلگرام
 BOT_TOKEN = "7364375268:AAHINkpnSsFdOf_gcaedtBw0G95Zj6dLjVE"
-bot = TeleBot(BOT_TOKEN)
+bot = TeleBot("7364375268:AAHINkpnSsFdOf_gcaedtBw0G95Zj6dLjVE")
 context = load_context()
 
 # اجرای ربات تلگرام در یک ترد جداگانه
