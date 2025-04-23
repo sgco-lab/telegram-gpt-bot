@@ -2,10 +2,10 @@ import requests
 import os
 from utils.embedder import Embedder
 
-# استفاده از کلید API برای Pawan (سرویس GPT شما)
-GPT_API_KEY = os.getenv("GPT_API_KEY") or "pk-uaUosLTWqoAQPzySAYfqHRdARIOeeWaNLRDlmwCzQQUXHdYq"  # مطمئن شوید که کلید واقعی رو قرار می‌دهید
-GPT_API_URL = "https://api.pawan.krd/v1/chat/completions"
+# 📌 توکن API از پلتفرم پوان کرُد
+GPT_API_KEY = os.getenv("pk-uaUosLTWqoAQPzySAYfqHRdARIOeeWaNLRDlmwCzQQUXHdYq") or "pk-uaUosLTWqoAQPzySAYfqHRdARIOeeWaNLRDlmwCzQQUXHdYq"
 
+GPT_API_URL = "https://api.pawan.krd/v1/chat/completions"
 embedder = Embedder()
 
 def ask_gpt(user_input, context=None):
@@ -20,7 +20,7 @@ def ask_gpt(user_input, context=None):
         "Content-Type": "application/json"
     }
     data = {
-        "model": "gpt-3.5-turbo",  # یا مدل‌های دیگر بسته به مستندات API پلتفرم Pawan
+        "model": "gpt-3.5-turbo",
         "messages": [
             {"role": "system", "content": smart_context},
             {"role": "user", "content": user_input}
@@ -31,5 +31,5 @@ def ask_gpt(user_input, context=None):
         response = requests.post(GPT_API_URL, headers=headers, json=data)
         return response.json()["choices"][0]["message"]["content"]
     except Exception as e:
-        print("❌ خطا در ارتباط با API:", e)
+        print("❌ خطا در درخواست به GPT:", e)
         return "❌ خطا در پاسخ‌دهی هوش مصنوعی."
