@@ -2,7 +2,7 @@ import os
 import requests
 
 API_URL = "https://platform.krd/v1/chat/completions"
-API_KEY = os.getenv("GPT_API_KEY")
+API_KEY = os.getenv("pk-MyrMmrmzayIAQmZkvKkSSIurEJqqEAMCVtyuCJVEqyGbBwym")
 
 def ask_gpt(message, context):
     try:
