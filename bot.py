@@ -2,8 +2,7 @@ import os
 import threading
 from flask import Flask
 from telebot import TeleBot
-from gpt import ask_gpt
-
+from modules.gpt import ask_gpt
 # توکن ربات تلگرام
 BOT_TOKEN = "8174756157:AAGECPZ3ctcaGE86EQVfpnoR3v8zUqdvtxA"
 bot = TeleBot(BOT_TOKEN)
