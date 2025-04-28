@@ -4,7 +4,7 @@ from telebot import TeleBot, types
 from modules.gpt import ask_gpt
 
 # گرفتن توکن ربات از متغیر محیطی
-BOT_TOKEN = os.getenv("https://eitaa.com/sepahangostar_co/212")
+BOT_TOKEN = os.getenv("7663649749:AAGQtMWCY3hrNtczlqtzY9Xldf1ydmaoBG4")
 bot = TeleBot(BOT_TOKEN)
 
 # context پیش‌فرض
@@ -34,7 +34,7 @@ def index():
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 10000))
     bot.remove_webhook()
-    app_url = os.environ.get('https://telegram-gpt-bot-1-21sc.onrender.com')  # مثلا: https://your-app-name.onrender.com
+    app_url = os.environ.get('https://telegram-gpt-bot-si8h.onrender.com')  # مثلا: https://your-app-name.onrender.com
     bot.set_webhook(url=f"{app_url}/{BOT_TOKEN}")
     app.run(host="0.0.0.0", port=port)
 import os
