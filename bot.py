@@ -34,7 +34,7 @@ def index():
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 10000))
     bot.remove_webhook()
-    app_url = os.environ.get('APP_URL')  # مثلا: https://your-app-name.onrender.com
+    app_url = os.environ.get('https://telegram-gpt-bot-1-21sc.onrender.com')  # مثلا: https://your-app-name.onrender.com
     bot.set_webhook(url=f"{app_url}/{BOT_TOKEN}")
     app.run(host="0.0.0.0", port=port)
 import os
