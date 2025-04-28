@@ -2,7 +2,7 @@ import os
 import requests
 
 API_URL = "https://platform.krd/v1/chat/completions"
-API_KEY = os.getenv("pk-MyrMmrmzayIAQmZkvKkSSIurEJqqEAMCVtyuCJVEqyGbBwym")
+API_KEY = os.getenv("API_KEY")  # از متغیر محیطی صحیح خوانده شود
 
 def ask_gpt(message, context):
     try:
@@ -20,8 +20,13 @@ def ask_gpt(message, context):
         }
 
         response = requests.post(API_URL, headers=headers, json=data)
-        result = response.json()
 
+        # چک کردن موفقیت درخواست
+        if response.status_code != 200:
+            print("❌ خطا در پاسخ از API:", response.text)
+            return "خطا در ارتباط با سرور هوش مصنوعی."
+
+        result = response.json()
         return result["choices"][0]["message"]["content"]
 
     except Exception as e:
