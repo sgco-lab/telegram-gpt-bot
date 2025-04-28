@@ -1,6 +1,3 @@
 pyTelegramBotAPI
 requests
-python-dotenv
-scikit-learn
-numpy
 flask
