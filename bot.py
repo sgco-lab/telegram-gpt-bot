@@ -4,7 +4,7 @@ from telebot import TeleBot, types
 from modules.gpt import ask_gpt
 
 # گرفتن توکن ربات از متغیر محیطی
-BOT_TOKEN = os.getenv("7663649749:AAGQtMWCY3hrNtczlqtzY9Xldf1ydmaoBG4")
+BOT_TOKEN = os.environ.get('BOT_TOKEN')
 bot = TeleBot(BOT_TOKEN)
 
 # context پیش‌فرض
